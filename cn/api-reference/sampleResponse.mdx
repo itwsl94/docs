@@ -1,0 +1,101 @@
+---
+title: '响应样例'
+description: ''
+---
+
+## 单轮对话：
+
+文本推理（“stream”=false）：
+
+```json
+{
+    "id": "chatcmpl-123",
+    "object": "chat.completion",
+    "created": 1677652288,
+    "model": "DeepSeek-R1",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "\n\nHello there, how may I assist you today?"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 9,
+        "completion_tokens": 12,
+        "total_tokens": 21
+    },
+    "prefill_time": 200,
+    "decode_time_arr": [56, 28, 28]
+}
+```
+## 多轮对话：
+
+#### 响应样例1：
+
+```json
+{
+    "id": "chatcmpl-123",
+    "object": "chat.completion",
+    "created": 1677652288,
+    "model": "DeepSeek-R1",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {
+                        "function": {
+                            "arguments": "{\"order_id\": \"12345\"}",
+                            "name": "get_delivery_date"
+                        },
+                        "id": "call_JwmTNF3O",
+                        "type": "function"
+                    }
+                ]
+            },
+            "finish_reason": "tool_calls"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 226,
+        "completion_tokens": 122,
+        "total_tokens": 348
+    },
+    "prefill_time": 200,
+    "decode_time_arr": [56, 28, 28]
+}
+```
+
+#### 响应样例2：
+```json
+{
+    "id": "endpoint_common_25",
+    "object": "chat.completion",
+    "created": 1728959154,
+    "model": "DeepSeek-R1",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "\n Your order with ID 12345 is scheduled for delivery on September 10th, 2024.",
+                "tool_calls": null
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 265,
+        "completion_tokens": 30,
+        "total_tokens": 295
+    },
+    "prefill_time": 200,
+    "decode_time_arr": [56, 28, 28]
+}
+```

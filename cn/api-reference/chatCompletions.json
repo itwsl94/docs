@@ -1,0 +1,330 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "创建文本对话请求",
+    "description": "",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.siliconstorm.ai"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/chat/completions": {
+      "post": {
+        "description": "为给定的聊天对话创建模型响应。",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/completionsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "返回示例",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/completionsResponseSuccess"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsInsufficientBalanceError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsAuthorizationNotPassedError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsApikeyError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsRequestTimeout"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsModelResponseException"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "completionsRequest": {
+        "allOf": [
+          {
+            "required": [
+              "model",
+              "messages",
+              "stream"
+            ],
+            "type": "object",
+            "properties": {
+              "model": {
+                "type": "string",
+                "enum": [
+                  "DeepSeek-R1"
+                ],
+                "description": "用于处理的模型",
+                "default": "DeepSeek-R1"
+              },
+              "messages": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string",
+                      "description": "消息的内容"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "user",
+                        "assistant",
+                        "system",
+                        "tool"
+                      ],
+                      "description": "发送者的角色"
+                    }
+                  },
+                  "required": [
+                    "content",
+                    "role"
+                  ]
+                },
+                "description": "消息数组",
+                "default": [
+                  {
+                    "content": "写一段hello word并解释代码",
+                    "role": "user"
+                  }
+                ]
+              },
+              "stream": {
+                "type": "boolean",
+                "description": "标记以指示响应是否应进行流式传输"
+              }
+            }
+          }
+        ]
+      },
+      "completionsResponseSuccess": {
+        "title": "成功响应",
+        "required": [
+          "id",
+          "object",
+          "created",
+          "model",
+          "choices"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "完成块的唯一标识符"
+          },
+          "object": {
+            "type": "string",
+            "description": "对象类型，总是 'chat.completion.chunk'"
+          },
+          "created": {
+            "type": "integer",
+            "description": "创建的时间戳"
+          },
+          "model": {
+            "type": "string",
+            "description": "用于生成响应的模型"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "description": "选择的索引"
+                },
+                "delta": {
+                  "type": "object",
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "description": "发送者的角色，可能是 'user' 或 'assistant' 或 'tool' 或 'system'"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "消息的内容"
+                    }
+                  },
+                  "required": [
+                    "role",
+                    "content"
+                  ]
+                },
+                "finish_reason": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "完成的原因，如果仍在流式传输则为 null"
+                }
+              },
+              "required": [
+                "index",
+                "delta"
+              ]
+            },
+            "description": "包含聊天响应内容的选择数组"
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": {
+                "type": "integer",
+                "description": "用于提示的 token 数量"
+              },
+              "completion_tokens": {
+                "type": "integer",
+                "description": "用于完成的 token 数量"
+              },
+              "total_tokens": {
+                "type": "integer",
+                "description": "使用的总 token 数量"
+              }
+            },
+            "nullable": true,
+            "description": "Token 使用情况详情，完成时会在最终响应中包含"
+          }
+        }
+      },
+      "completionsInsufficientBalanceError": {
+        "title": "余额不足",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 701
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "completionsAuthorizationNotPassedError": {
+        "title": "未传Authorization",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 702
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "completionsApikeyError": {
+        "title": "apikey错误",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 801
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "completionsRequestTimeout": {
+        "title": "请求超时",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 802
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "completionsModelResponseException": {
+        "title": "模型响应异常",
+        "description": "模型响应异常，按消息提示进行处理",
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 9999
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "使用以下格式进行身份验证：Bearer [<your api key>](https://chat.siliconstorm.ai/app/key)。"
+      }
+    }
+  }
+}

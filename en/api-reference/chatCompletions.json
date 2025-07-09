@@ -1,0 +1,330 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI Plant Store",
+    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.siliconstorm.ai"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/chat/completions": {
+      "post": {
+        "description": "Creates a model response for the given chat conversation.",
+        "requestBody": {
+          "description": "Plant to add to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/completionsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Return example",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf":[
+                    {
+                      "$ref": "#/components/schemas/completionsResponseSuccess"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsInsufficientBalanceError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsAuthorizationNotPassedError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsApikeyError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsRequestTimeout"
+                    },
+                    {
+                      "$ref": "#/components/schemas/completionsModelResponseException"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "completionsRequest": {
+        "allOf": [
+          {
+            "required": [
+              "model",
+              "messages",
+              "stream"
+            ],
+            "type": "object",
+            "properties": {
+              "model": {
+                "type": "string",
+                "enum": [
+                  "DeepSeek-R1"
+                ],
+                "description": "The model to use for processing",
+                "default": "DeepSeek-R1"
+              },
+              "messages": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "string",
+                      "description": "The content of the message"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "user",
+                        "assistant",
+                        "system",
+                        "tool"
+                      ],
+                      "description": "The role of the sender"
+                    }
+                  },
+                  "required": [
+                    "content",
+                    "role"
+                  ]
+                },
+                "description": "Array of messages",
+                "default": [
+                  {
+                    "content": "Write a hello word and explain the code",
+                    "role": "user"
+                  }
+                ]
+              },
+              "stream": {
+                "type": "boolean",
+                "description": "Flag to indicate if the response should be streamed"
+              }
+            }
+          }
+        ]
+      },
+      "completionsResponseSuccess": {
+        "title": "Success",
+        "required": [
+          "id",
+          "object",
+          "created",
+          "model",
+          "choices"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the completion chunk"
+          },
+          "object": {
+            "type": "string",
+            "description": "The object type, always 'chat.completion.chunk'"
+          },
+          "created": {
+            "type": "integer",
+            "description": "Timestamp of the creation"
+          },
+          "model": {
+            "type": "string",
+            "description": "The model used for generating the response"
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "type": "integer",
+                  "description": "The index of the choice"
+                },
+                "delta": {
+                  "type": "object",
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "description": "The role of the sender, either 'user' or 'assistant'"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "The content of the message"
+                    }
+                  },
+                  "required": [
+                    "role",
+                    "content"
+                  ]
+                },
+                "finish_reason": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "The reason for finishing the completion, null if still streaming"
+                }
+              },
+              "required": [
+                "index",
+                "delta"
+              ]
+            },
+            "description": "The choices array containing the chat response content"
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": {
+                "type": "integer",
+                "description": "Number of tokens used for the prompt"
+              },
+              "completion_tokens": {
+                "type": "integer",
+                "description": "Number of tokens used for the completion"
+              },
+              "total_tokens": {
+                "type": "integer",
+                "description": "Total number of tokens used"
+              }
+            },
+            "nullable": true,
+            "description": "Token usage details, included in the final response when completed"
+          }
+        }
+      },
+      "completionsInsufficientBalanceError": {
+        "title": "Insufficient balance",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 701
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "completionsAuthorizationNotPassedError": {
+        "title": "Authorization not passed",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 702
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "completionsApikeyError": {
+        "title": "Apikey error",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 801
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "completionsRequestTimeout": {
+        "title": "Request timeout",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 802
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "completionsModelResponseException": {
+        "title": "Model response exception",
+        "description": "The model responds abnormally, and is handled according to the message prompt",
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "default": 9999
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Use the following format for authentication: Bearer [<your api key>](https://chat.siliconstorm.ai/app/key)."
+      }
+    }
+  }
+}

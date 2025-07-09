@@ -1,0 +1,356 @@
+---
+title: '流式推理'
+description: ''
+---
+
+### 流式推理1
+
+（“stream”=true，使用sse格式返回）：
+
+```json
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"\t"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"\t"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","usage":{"prompt_tokens":54,"completion_tokens":17,"total_tokens":71},"choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":"stop"}]}
+
+data: [DONE]
+```
+
+
+#### 流式推理2
+
+（“stream”=true，配置项“fullTextEnabled”=true，使用sse格式返回）：
+
+```json
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello!"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist you"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist you today"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist you today?"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","full_text":"Hello! How can I assist you today?","usage":{"prompt_tokens":31,"completion_tokens":10,"total_tokens":41},"choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist you today?"},"finish_reason":"length"}]}
+
+data: [DONE]
+```
+
+## 输出说明
+
+#### 表1
+
+文本推理结果说明
+
+<table cellpadding="4" cellspacing="0" frame="border" border="1" rules="all" data-header="7">
+    <thead align="left">
+    <tr>
+        <th align="left" colspan="5"><p>参数名</p></th>
+        <th align="left"><p>类型</p></th>
+        <th align="left"><p>说明</p></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="5"><p>id</p></td>
+        <td><p>string</p></td>
+        <td><p>请求ID。</p></td>
+    </tr>
+    <tr>
+        <td colspan="5"><p>object</p></td>
+        <td><p>string</p></td>
+        <td><p>返回结果类型目前都返回"chat.completion"。</p></td>
+    </tr>
+    <tr>
+        <td colspan="5"><p>created</p></td>
+        <td><p>integer</p></td>
+        <td><p>推理请求时间戳，精确到秒。</p></td>
+    </tr>
+    <tr>
+        <td colspan="5"><p>model</p></td>
+        <td><p>string</p></td>
+        <td><p>使用的推理模型。</p></td>
+    </tr>
+    <tr>
+        <td colspan="5"><p>choices</p></td>
+        <td><p>list</p></td>
+        <td><p>推理结果列表。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="11"><p>-</p></td>
+        <td colspan="4"><p>index</p></td>
+        <td><p>integer</p></td>
+        <td><p>choices消息index，当前只能为0。</p></td>
+    </tr>
+    <tr>
+        <td colspan="4"><p>message</p></td>
+        <td><p>object</p></td>
+        <td><p>推理消息。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="8"><p>-</p></td>
+        <td colspan="3"><p>role</p></td>
+        <td><p>string</p></td>
+        <td><p>角色，目前都返回"assistant"。</p></td>
+    </tr>
+    <tr>
+        <td colspan="3"><p>content</p></td>
+        <td><p>string</p></td>
+        <td><p>推理文本结果。</p></td>
+    </tr>
+    <tr>
+        <td colspan="3"><p>tool_calls</p></td>
+        <td><p>list</p></td>
+        <td><p>模型工具调用输出。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="5"><p>-</p></td>
+        <td colspan="2"><p>function</p></td>
+        <td><p>dict</p></td>
+        <td><p>函数调用说明。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="2"><p>-</p></td>
+        <td><p>arguments</p></td>
+        <td><p>string</p></td>
+        <td><p>调用函数的参数，JSON格式的字符串。</p></td>
+    </tr>
+    <tr>
+        <td><p>name</p></td>
+        <td><p>string</p></td>
+        <td><p>调用的函数名。</p></td>
+    </tr>
+    <tr>
+        <td colspan="2"><p>id</p></td>
+        <td><p>string</p></td>
+        <td><p>模型调用工具的ID。</p></td>
+    </tr>
+    <tr>
+        <td colspan="2"><p>type</p></td>
+        <td><p>string</p></td>
+        <td><p>工具的类型，目前仅支持function。</p></td>
+    </tr>
+    <tr>
+        <td colspan="4"><p>finish_reason</p></td>
+        <td><p>string</p></td>
+        <td>
+            <p>结束原因。</p>
+            <ul>
+                <li>
+                    stop：
+                    <ul>
+                        <li>请求被CANCEL或STOP，用户不感知，丢弃响应。</li>
+                        <li>请求执行中出错，响应输出为空，err_msg非空。</li>
+                        <li>请求输入校验异常，响应输出为空，err_msg非空。</li>
+                        <li>请求遇eos结束符正常结束。</li>
+                    </ul>
+                </li>
+                <li>
+                    length：
+                    <ul>
+                        <li>请求因达到最大序列长度而结束，响应为最后一轮迭代输出。</li>
+                        <li>请求因达到最大输出长度（包括请求和模型粒度）而结束，响应为最后一轮迭代输出。</li>
+                    </ul>
+                </li>
+                <li>tool_calls：表示模型调用了工具。</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5"><p>usage</p></td>
+        <td><p>object</p></td>
+        <td><p>推理结果统计数据。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="3"><p>-</p></td>
+        <td colspan="4"><p>prompt_tokens</p></td>
+        <td><p>int</p></td>
+        <td><p>用户输入的prompt文本对应的token长度。</p></td>
+    </tr>
+    <tr>
+        <td colspan="4"><p>completion_tokens</p></td>
+        <td><p>int</p></td>
+        <td>
+            <p>推理结果token数量。PD场景下统计P和D推理结果的总token数量。当一个请求的推理长度上限取maxIterTimes的值时，D节点响应中completion_tokens数量为maxIterTimes+1，即增加了P推理结果的首token数量。</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4"><p>total_tokens</p></td>
+        <td><p>int</p></td>
+        <td><p>请求和推理的总token数。</p></td>
+    </tr>
+    <tr>
+        <td colspan="5"><p>prefill_time</p></td>
+        <td><p>float</p></td>
+        <td><p>推理首token时延。</p></td>
+    </tr>
+    <tr>
+        <td colspan="5"><p>decode_time_arr</p></td>
+        <td><p>list</p></td>
+        <td><p>推理Decode时延数组。</p></td>
+    </tr>
+    </tbody>
+</table>
+
+#### 表2
+
+流式推理结果说明
+
+<table cellpadding="4" cellspacing="0" frame="border" border="1" rules="all" data-header="6">
+    <thead align="left">
+    <tr>
+        <th align="left" colspan="4" valign="top"><p>参数名</p></th>
+        <th align="left" valign="top"><p>类型</p></th>
+        <th align="left" valign="top"><p>说明</p></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="4" valign="top"><p>data</p></td>
+        <td valign="top"><p>object</p></td>
+        <td valign="top"><p>一次推理返回的结果。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="15" valign="top"><p>-</p></td>
+        <td colspan="3" valign="top"><p>id</p></td>
+        <td valign="top"><p>string</p></td>
+        <td valign="top"><p>请求ID。</p></td>
+    </tr>
+    <tr>
+        <td colspan="3" valign="top"><p>object</p></td>
+        <td valign="top"><p>string</p></td>
+        <td valign="top"><p>目前都返回"chat.completion.chunk"。</p></td>
+    </tr>
+    <tr>
+        <td colspan="3" valign="top"><p>created</p></td>
+        <td valign="top"><p>integer</p></td>
+        <td valign="top"><p>推理请求时间戳，精确到秒。</p></td>
+    </tr>
+    <tr>
+        <td colspan="3" valign="top"><p>model</p></td>
+        <td valign="top"><p>string</p></td>
+        <td valign="top"><p>使用的推理模型。</p></td>
+    </tr>
+    <tr>
+        <td colspan="3" valign="top"><p>full_text</p></td>
+        <td valign="top"><p>string</p></td>
+        <td valign="top">
+            <p>全量文本结果，配置项<span>“fullTextEnabled”</span>=true时才有此返回值。</p>
+            </td>
+    </tr>
+    <tr>
+        <td colspan="3" valign="top"><p>usage</p></td>
+        <td valign="top"><p>object</p></td>
+        <td valign="top"><p>推理结果统计数据。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="3" valign="top"><p>-</p></td>
+        <td colspan="2" valign="top"><p>prompt_tokens</p></td>
+        <td valign="top"><p>int</p></td>
+        <td valign="top"><p>用户输入的prompt文本对应的token长度。</p></td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top"><p>completion_tokens</p></td>
+        <td valign="top"><p>int</p></td>
+        <td valign="top">
+            <p>推理结果token数量。PD场景下统计P和D推理结果的总token数量。当一个请求的推理长度上限取maxIterTimes的值时，D节点响应中completion_tokens数量为maxIterTimes+1，即增加了P推理结果的首token数量。</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top"><p>total_tokens</p></td>
+        <td valign="top"><p>int</p></td>
+        <td valign="top"><p>请求和推理的总token数。</p></td>
+    </tr>
+    <tr>
+        <td colspan="3" valign="top"><p>choices</p></td>
+        <td valign="top"><p>list</p></td>
+        <td valign="top"><p>流式推理结果。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="5" valign="top"><p>-</p></td>
+        <td colspan="2" valign="top"><p>index</p></td>
+        <td valign="top"><p>integer</p></td>
+        <td valign="top"><p>choices消息index，当前只能为0。</p></td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top"><p>delta</p></td>
+        <td valign="top"><p>object</p></td>
+        <td valign="top"><p>推理返回结果，最后一个响应为空。</p></td>
+    </tr>
+    <tr>
+        <td rowspan="2" valign="top"><p>-</p></td>
+        <td valign="top"><p>role</p></td>
+        <td valign="top"><p>string</p></td>
+        <td valign="top"><p>角色，目前都返回"assistant"。</p></td>
+    </tr>
+    <tr>
+        <td valign="top"><p>content</p></td>
+        <td valign="top"><p>string</p></td>
+        <td valign="top"><p>推理文本结果。</p></td>
+    </tr>
+    <tr>
+        <td colspan="2" valign="top"><p>finish_reason</p></td>
+        <td valign="top"><p>string</p></td>
+        <td valign="top">
+            <p>结束原因，只在最后一次推理结果返回。</p>
+            <ul>
+                <li>
+                    stop：
+                    <ul>
+                        <li>请求被CANCEL或STOP，用户不感知，丢弃响应。</li>
+                        <li>请求执行中出错，响应输出为空，err_msg非空。</li>
+                        <li>请求输入校验异常，响应输出为空，err_msg非空。</li>
+                        <li>请求遇eos结束符正常结束。</li>
+                    </ul>
+                </li>
+                <li>
+                    length：
+                    <ul>
+                        <li>请求因达到最大序列长度而结束，响应为最后一轮迭代输出。</li>
+                        <li>请求因达到最大输出长度（包括请求和模型粒度）而结束，响应为最后一轮迭代输出。</li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>

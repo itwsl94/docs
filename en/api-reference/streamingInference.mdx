@@ -1,0 +1,356 @@
+---
+title: 'streaming Inference'
+description: ''
+---
+
+### Streamed Inference 1
+
+(“stream”=true, return in SSE format)：
+
+```json
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"\t"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"\t"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_8","object":"chat.completion.chunk","created":1729614610,"model":"DeepSeek-R1","usage":{"prompt_tokens":54,"completion_tokens":17,"total_tokens":71},"choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":"stop"}]}
+
+data: [DONE]
+```
+
+
+#### Streamed Inference 2
+
+ (“stream”=true, with configuration “fullTextEnabled”=true, return in SSE format)：
+
+```json
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello!"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist you"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist you today"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist you today?"},"finish_reason":null}]}
+
+data: {"id":"endpoint_common_11","object":"chat.completion.chunk","created":1730184192,"model":"DeepSeek-R1","full_text":"Hello! How can I assist you today?","usage":{"prompt_tokens":31,"completion_tokens":10,"total_tokens":41},"choices":[{"index":0,"delta":{"role":"assistant","content":"Hello! How can I assist you today?"},"finish_reason":"length"}]}
+
+data: [DONE]
+```
+
+## Output Description
+
+#### Table 1
+
+Text Inference Result Description
+
+<table cellpadding="4" cellspacing="0" frame="border" border="1" rules="all" data-header="7">
+    <thead align="left">
+        <tr>
+            <th align="left" colspan="5"><p>Parameter Name</p></th>
+            <th align="left"><p>Type</p></th>
+            <th align="left"><p>Description</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="5"><p>id</p></td>
+            <td><p>string</p></td>
+            <td><p>Request ID.</p></td>
+        </tr>
+        <tr>
+            <td colspan="5"><p>object</p></td>
+            <td><p>string</p></td>
+            <td><p>The return result type, currently always "chat.completion".</p></td>
+        </tr>
+        <tr>
+            <td colspan="5"><p>created</p></td>
+            <td><p>integer</p></td>
+            <td><p>Inference request timestamp, accurate to the second.</p></td>
+        </tr>
+        <tr>
+            <td colspan="5"><p>model</p></td>
+            <td><p>string</p></td>
+            <td><p>Inference model used.</p></td>
+        </tr>
+        <tr>
+            <td colspan="5"><p>choices</p></td>
+            <td><p>list</p></td>
+            <td><p>List of inference results.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="11"><p>-</p></td>
+            <td colspan="4"><p>index</p></td>
+            <td><p>integer</p></td>
+            <td><p>Choice message index, currently only 0 is allowed.</p></td>
+        </tr>
+        <tr>
+            <td colspan="4"><p>message</p></td>
+            <td><p>object</p></td>
+            <td><p>Inference message.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="8"><p>-</p></td>
+            <td colspan="3"><p>role</p></td>
+            <td><p>string</p></td>
+            <td><p>Role, currently always "assistant".</p></td>
+        </tr>
+        <tr>
+            <td colspan="3"><p>content</p></td>
+            <td><p>string</p></td>
+            <td><p>Inference text result.</p></td>
+        </tr>
+        <tr>
+            <td colspan="3"><p>tool_calls</p></td>
+            <td><p>list</p></td>
+            <td><p>Model tool call output.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="5"><p>-</p></td>
+            <td colspan="2"><p>function</p></td>
+            <td><p>dict</p></td>
+            <td><p>Function call description.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="2"><p>-</p></td>
+            <td><p>arguments</p></td>
+            <td><p>string</p></td>
+            <td><p>Arguments for calling the function, in JSON string format.</p></td>
+        </tr>
+        <tr>
+            <td><p>name</p></td>
+            <td><p>string</p></td>
+            <td><p>Name of the called function.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2"><p>id</p></td>
+            <td><p>string</p></td>
+            <td><p>Tool call ID for the model's tool invocation.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2"><p>type</p></td>
+            <td><p>string</p></td>
+            <td><p>Tool type, currently only supports "function".</p></td>
+        </tr>
+        <tr>
+            <td colspan="4"><p>finish_reason</p></td>
+            <td><p>string</p></td>
+            <td>
+                <p>Reason for completion.</p>
+                <ul>
+                    <li>
+                        stop：
+                        <ul>
+                            <li>The request was CANCELLED or STOPPED, not visible to the user, and the response is discarded.</li>
+                            <li>An error occurred during the request execution, and the response output is empty, with the err_msg non-empty.</li>
+                            <li>An input validation exception occurred during the request, and the response output is empty, with the err_msg non-empty.</li>
+                            <li>The request ends normally due to encountering the eos (end-of-sequence) symbol.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        length：
+                        <ul>
+                            <li>The request ends due to reaching the maximum sequence length, and the response is the output of the last iteration.</li>
+                            <li>The request ends due to reaching the maximum output length (including request and model granularity), and the response is the output of the last iteration.</li>
+                        </ul>
+                    </li>
+                    <li>tool_calls: Indicates that the model invoked a tool.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5"><p>usage</p></td>
+            <td><p>object</p></td>
+            <td><p>Inference result statistics data.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="3"><p>-</p></td>
+            <td colspan="4"><p>prompt_tokens</p></td>
+            <td><p>int</p></td>
+            <td><p>Token length of the user's input prompt text.</p></td>
+        </tr>
+        <tr>
+            <td colspan="4"><p>completion_tokens</p></td>
+            <td><p>int</p></td>
+            <td>
+                <p>Number of tokens in the inference result. In the PD scenario, it counts the total token number of P and D inference results. When the maximum inference length of a request is set to maxIterTimes, the D node's response will have completion_tokens equal to maxIterTimes+1, which includes the first token of the P inference result.</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><p>total_tokens</p></td>
+            <td><p>int</p></td>
+            <td><p>Total number of tokens for the request and inference.</p></td>
+        </tr>
+        <tr>
+            <td colspan="5"><p>prefill_time</p></td>
+            <td><p>float</p></td>
+            <td><p>Time delay for the first token of inference.</p></td>
+        </tr>
+        <tr>
+            <td colspan="5"><p>decode_time_arr</p></td>
+            <td><p>list</p></td>
+            <td><p>Array of decoding time delays for inference.</p></td>
+        </tr>
+    </tbody>
+</table>
+
+#### Table 2
+
+Streamed Inference Result Description
+
+<table cellpadding="4" cellspacing="0" frame="border" border="1" rules="all" data-header="6">
+    <thead align="left">
+        <tr>
+            <th align="left" colspan="4" valign="top"><p>Parameter Name</p></th>
+            <th align="left" valign="top"><p>Type</p></th>
+            <th align="left" valign="top"><p>Description</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4" valign="top"><p>data</p></td>
+            <td valign="top"><p>object</p></td>
+            <td valign="top"><p>Result returned from a single inference.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="15" valign="top"><p>-</p></td>
+            <td colspan="3" valign="top"><p>id</p></td>
+            <td valign="top"><p>string</p></td>
+            <td valign="top"><p>Request ID.</p></td>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top"><p>object</p></td>
+            <td valign="top"><p>string</p></td>
+            <td valign="top"><p>Currently always returns "chat.completion.chunk".</p></td>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top"><p>created</p></td>
+            <td valign="top"><p>integer</p></td>
+            <td valign="top"><p>Inference request timestamp, accurate to the second.</p></td>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top"><p>model</p></td>
+            <td valign="top"><p>string</p></td>
+            <td valign="top"><p>The inference model used.</p></td>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top"><p>full_text</p></td>
+            <td valign="top"><p>string</p></td>
+            <td valign="top">
+                <p>Full text result, only available when the configuration item <span>“fullTextEnabled”</span> is set to true.</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top"><p>usage</p></td>
+            <td valign="top"><p>object</p></td>
+            <td valign="top"><p>Inference result statistics.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="3" valign="top"><p>-</p></td>
+            <td colspan="2" valign="top"><p>prompt_tokens</p></td>
+            <td valign="top"><p>int</p></td>
+            <td valign="top"><p>Token length of the user input prompt text.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top"><p>completion_tokens</p></td>
+            <td valign="top"><p>int</p></td>
+            <td valign="top">
+                <p>Number of tokens in the inference result. In PD scenarios, this counts the total tokens from both P and D inference results. When the inference length limit of a request is set to maxIterTimes, the D node response will have a completion_tokens count of maxIterTimes+1, meaning it includes the first token of the P inference result.</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top"><p>total_tokens</p></td>
+            <td valign="top"><p>int</p></td>
+            <td valign="top"><p>Total number of tokens for the request and inference.</p></td>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top"><p>choices</p></td>
+            <td valign="top"><p>list</p></td>
+            <td valign="top"><p>Streaming inference results.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="5" valign="top"><p>-</p></td>
+            <td colspan="2" valign="top"><p>index</p></td>
+            <td valign="top"><p>integer</p></td>
+            <td valign="top"><p>Choices message index, currently only 0 is supported.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top"><p>delta</p></td>
+            <td valign="top"><p>object</p></td>
+            <td valign="top"><p>Inference result returned, the last response is empty.</p></td>
+        </tr>
+        <tr>
+            <td rowspan="2" valign="top"><p>-</p></td>
+            <td valign="top"><p>role</p></td>
+            <td valign="top"><p>string</p></td>
+            <td valign="top"><p>Role, currently always returns "assistant".</p></td>
+        </tr>
+        <tr>
+            <td valign="top"><p>content</p></td>
+            <td valign="top"><p>string</p></td>
+            <td valign="top"><p>Inference text result.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top"><p>finish_reason</p></td>
+            <td valign="top"><p>string</p></td>
+            <td valign="top">
+                <p>Reason for finishing, only returned in the last inference result.</p>
+                <ul>
+                    <li>
+                        stop:
+                        <ul>
+                            <li>The request was CANCELLED or STOPPED, the user is unaware, and the response is discarded.</li>
+                            <li>An error occurred during the execution of the request, the response is empty, and err_msg is not empty.</li>
+                            <li>The request input validation failed, the response is empty, and err_msg is not empty.</li>
+                            <li>The request finished normally when encountering the eos (end-of-stream) delimiter.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        length:
+                        <ul>
+                            <li>The request ended because the maximum sequence length was reached, the response is the output from the last iteration.</li>
+                            <li>The request ended because the maximum output length (including request and model granularity) was reached, the response is the output from the last iteration.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
